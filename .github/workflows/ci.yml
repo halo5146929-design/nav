@@ -25,7 +25,7 @@ jobs:
       # dist/404.html: gh-pages history mode
       - name: Build
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+          NODE_OPTIONS: '--no-experimental-detect-module'
         run: |
           npm run build-gh-pages
           cp dist/browser/index.html dist/browser/404.html
