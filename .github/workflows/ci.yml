@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - main
+permissions: write-all
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,9 +21,11 @@ jobs:
           version: 10
       - name: Install
         run: |
-          pnpm install
+          pnpm install --no-frozen-lockfile
       # dist/404.html: gh-pages history mode
       - name: Build
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           npm run build-gh-pages
           cp dist/browser/index.html dist/browser/404.html
